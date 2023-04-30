@@ -25,3 +25,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.dark-mode {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
