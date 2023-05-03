@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import logo from '../public/logo.png';
 
-const AdminPage = () => {
+const AdminPage = ( ) => {
     const router = useRouter();
     const { name, email } = router.query;
 
