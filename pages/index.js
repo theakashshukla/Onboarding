@@ -1,9 +1,10 @@
-import OnboardingPage from "./onboarding.js";
+import AdminPage from "./admin";
+
 
 export default function Home() {
   return (
     <>
-      <OnboardingPage/>
+      <AdminPage/>
     </>
   )
 }
