@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
 
 
-const Onboarding = () => {
+const OnboardingPage = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -218,5 +218,5 @@ const Onboarding = () => {
 
         )
     }
-    export default Onboarding
+    export default OnboardingPage;
 
