@@ -1,10 +1,10 @@
-import Onboarding from "./onboarding";
+
 
 
 export default function Home() {
   return (
     <>
-      <Onboarding/>
+      <h1>Home</h1>
     </>
   )
 }
