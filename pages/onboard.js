@@ -4,6 +4,8 @@ import { faUserAlt, faCreditCard, faCheck, faLock, faAngleRight } from '@fortawe
 import { app } from '../firebase';
 import { useRouter } from 'next/router';
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import Image from 'next/image';
+import logo from '../public/logo.png';
 
 
 const OnboardPage = () => {
@@ -56,6 +58,9 @@ const OnboardPage = () => {
         <>
 
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+                <div className="sm:mx-auto sm:w-full sm:max-w-md m-5">
+                    <Image src={logo} alt="Logo" width={152} height={152} className="mx-auto" />
+                </div>
                 <div className="max-w-md w-full py-7 px-7 bg-white shadow-lg rounded-lg">
 
                     <div className="flex items-center mb-6">
