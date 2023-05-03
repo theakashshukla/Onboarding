@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import Icon from '../utils/icon';
 import { faUser, faUserAlt, faCreditCard, faCheck, faInfoCircle, faLock, faMinus, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { app } from '../firebase';
+import { useRouter } from 'next/router';
+import { getFirestore, addDoc, collection } from 'firebase/firestore';
+
 
 const Onboarding = () => {
     const [name, setName] = useState('')
@@ -9,29 +13,48 @@ const Onboarding = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [privacyPolicy, setPrivacyPolicy] = useState(false)
     const [currentStep, setCurrentStep] = useState(1)
+    const router = useRouter();
+
+    const db = getFirestore(app);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const userCollectionRef = collection(db, 'users');
+            await addDoc(userCollectionRef, {
+                name: name,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword,
+                privacyPolicy: privacyPolicy
+            });
+            // show submit id
+            const docId = userCollectionRef.id;
+            console.log('User added!: New document reference ID:', docId);
+            router.push({
+              pathname: '/admin',
+              query: { name, email },
+            });
+        } catch (error) {
+          console.error(error);
+        }
+    };
+      
 
 
     // const handleSubmit = (e) => {
     //     e.preventDefault()
-    //     console.log('Name:', name)
-    //     console.log('Email:', email)
-    //     console.log('Password:', password)
-    //     console.log('Confirm Password:', confirmPassword)
-    //     console.log('Privacy Policy:', privacyPolicy)
+    //     // handleNext()
+
     // }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('Form submitted')
-    }
-
-    const handleNext = () => {
-        setCurrentStep(currentStep + 1)
-    }
+    // const handleNext = () => {
+    //     setCurrentStep(currentStep + 1)
+    // }
 
     return (
-        <>
-            
+            <>
+
                 <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
                     <div className="max-w-md w-full py-7 px-7 bg-white shadow-lg rounded-lg">
 
@@ -163,7 +186,7 @@ const Onboarding = () => {
                             </div>
                         )}
 
-                        {currentStep === 2 && (
+                        {/* {currentStep === 2 && (
 
                             <div>
                                 <h2 className="text-lg font-medium text-gray-900 mb-6">Personal Information</h2>
@@ -186,14 +209,14 @@ const Onboarding = () => {
                                 <form onSubmit={handleSubmit}>
                                 </form>
                             </div>
-                        )}
+                        )} */}
 
                     </div>
                 </div>
-            
-        </>
 
-    )
-}
-export default Onboarding
+            </>
+
+        )
+    }
+    export default Onboarding
 
