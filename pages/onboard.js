@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '../utils/icon';
 import { faUserAlt, faCreditCard, faCheck, faLock, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { app } from '../firebase';
 import { useRouter } from 'next/router';
-import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import { getFirestore, addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import logo from '../public/logo.png';
 
@@ -12,6 +12,7 @@ const OnboardPage = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [button, setButton] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [privacyPolicy, setPrivacyPolicy] = useState(false)
     const [currentStep, setCurrentStep] = useState(1)
@@ -41,6 +42,26 @@ const OnboardPage = () => {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        const buttonRef = doc(db, 'button', 'button');
+    
+        getDoc(buttonRef)
+          .then((doc) => {
+            if (doc.exists()) {
+              setButton(doc.data().name);
+                console.log('Button document data:', doc.data());
+            } else {
+              console.log('Button document not found!');
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching button data:', error);
+          });
+      }, []);
+
+
+
 
 
 
@@ -183,7 +204,7 @@ const OnboardPage = () => {
                                 </div>
                                 <div className="flex justify-end">
                                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                        Next
+                                        {button}
                                         <Icon icon={faAngleRight} className="ml-2" />
                                     </button>
                                 </div>
