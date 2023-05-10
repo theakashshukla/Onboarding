@@ -5,7 +5,7 @@ import { app } from '../firebase';
 import { useRouter } from 'next/router';
 import { getFirestore, addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
-import logo from '../public/logo.png';
+
 
 
 const OnboardPage = () => {
@@ -13,6 +13,7 @@ const OnboardPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [button, setButton] = useState('')
+    const [logoImage, setLogoImage] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [privacyPolicy, setPrivacyPolicy] = useState(false)
     const [currentStep, setCurrentStep] = useState(1)
@@ -31,7 +32,7 @@ const OnboardPage = () => {
                 confirmPassword: confirmPassword,
                 privacyPolicy: privacyPolicy
             });
-            // show submit id
+            // Show Submit Id
             const docId = userCollectionRef.id;
             console.log('User added!: New document reference ID:', docId);
             router.push({
@@ -45,20 +46,21 @@ const OnboardPage = () => {
 
     useEffect(() => {
         const buttonRef = doc(db, 'button', 'button');
-    
+
         getDoc(buttonRef)
-          .then((doc) => {
-            if (doc.exists()) {
-              setButton(doc.data().name);
-                console.log('Button document data:', doc.data());
-            } else {
-              console.log('Button document not found!');
-            }
-          })
-          .catch((error) => {
-            console.error('Error fetching button data:', error);
-          });
-      }, []);
+            .then((doc) => {
+                if (doc.exists()) {
+                    setButton(doc.data().name);
+                    setLogoImage(doc.data().logo);
+                    console.log('Button document data:', doc.data());
+                } else {
+                    console.log('Button document not found!');
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching button data:', error);
+            });
+    }, []);
 
 
 
@@ -80,7 +82,7 @@ const OnboardPage = () => {
 
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md m-5">
-                    <Image src={logo} alt="Logo" width={152} height={152} className="mx-auto" />
+                    <Image src={logoImage} alt="Logo" width={152} height={152} className="mx-auto" />
                 </div>
                 <div className="max-w-md w-full py-7 px-7 bg-white shadow-lg rounded-lg">
 
