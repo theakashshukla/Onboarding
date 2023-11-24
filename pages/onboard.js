@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Icon from "../utils/icon";
+import Icon from "@/utils/icon";
 import {
   faUserAlt,
   faCreditCard,
