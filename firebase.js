@@ -19,11 +19,12 @@ const firebaseConfig = {
   measurementId: REACT_APP_MEASUREMENT_ID
 };
 
+// console.log("Firebase", process.env.FIREBASE_API_KEY);
+// console.log("Firebase", process.env.FIREBASE_APP_ID);
+// console.log("Firebase", process.env.FIREBASE_AUTH_DOMAIN);
+
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage();
 // const analytics = getAnalytics(app);
-
-
-

@@ -1,12 +1,10 @@
-import AdminPage from "./admin";
-import OnboardPage from "./onboard";
-
-
+import AdminPage from "@/pages/admin";
+import OnboardPage from "@/pages/onboard";
 
 export default function Home() {
   return (
     <>
-      <OnboardPage/>
+      <OnboardPage />
     </>
-  )
+  );
 }
